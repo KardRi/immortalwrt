@@ -347,6 +347,7 @@ UBOOT_CUSTOMIZE_CONFIG := \
 		--disable EFI_CAPSULE_ON_DISK \
 		--disable EFI_CAPSULE_FIRMWARE_RAW \
 		--disable SPL_FIT_SIGNATURE \
+		--disable USB_FUNCTION_FASTBOOT \
 	)
 
 UBOOT_MAKE_FLAGS += \
@@ -356,8 +357,7 @@ UBOOT_MAKE_FLAGS += \
 define Build/InstallDev
 	$(INSTALL_DIR) $(STAGING_DIR_IMAGE)
 ifneq ($(TPL),)
-	$(CP) $(PKG_BUILD_DIR)/idbloader.img $(STAGING_DIR_IMAGE)/$(BUILD_VARIANT)-idbloader.img
-	$(CP) $(PKG_BUILD_DIR)/u-boot.itb $(STAGING_DIR_IMAGE)/$(BUILD_VARIANT)-u-boot.itb
+	$(CP) $(PKG_BUILD_DIR)/u-boot-rockchip.bin $(STAGING_DIR_IMAGE)/$(BUILD_VARIANT)-u-boot-rockchip.bin
 else
 	$(STAGING_DIR_IMAGE)/loaderimage --pack --uboot $(PKG_BUILD_DIR)/u-boot-dtb.bin $(PKG_BUILD_DIR)/uboot.img 0x200000
 	$(CP) $(PKG_BUILD_DIR)/uboot.img $(STAGING_DIR_IMAGE)/$(BUILD_VARIANT)-uboot.img
